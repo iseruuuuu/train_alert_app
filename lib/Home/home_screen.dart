@@ -6,6 +6,7 @@
 // import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 // import 'package:provider/provider.dart';
 // import 'home_screen_state.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -53,23 +54,68 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(height: 50),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                children: [
-                  Text('1'),
-                  Text('2'),
-                  Text('3'),
-                  Text('4'),
-                ],
+
+            Center(
+              child: RaisedButton(
+                onPressed: () {
+                  _showModalPicker(context);
+                },
+                child: const Text('Show Picker'),
               ),
             ),
+
+            Text(_selectedItem)
           ],
         ),
       ),
     );
+  }
+
+  void _showModalPicker(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: MediaQuery.of(context).size.height / 3,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: CupertinoPicker(
+              itemExtent: 40,
+              children: _items.map(_pickerItem).toList(),
+              onSelectedItemChanged: _onSelectedItemChanged,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  String _selectedItem = 'none';
+
+  final List<String> _items = [
+    'item1',
+    'item2',
+    'item3',
+    'item4',
+    'item5',
+    'item6',
+  ];
+
+  Widget _pickerItem(String str) {
+    return Text(
+      str,
+      style: const TextStyle(fontSize: 32),
+    );
+  }
+
+  void _onSelectedItemChanged(int index) {
+    setState(() {
+      _selectedItem = _items[index];
+    });
   }
 }
 
