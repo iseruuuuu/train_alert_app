@@ -50,6 +50,9 @@ dev_dependencies:
   state_notifier:
   build_runner:
 
+  #timer
+  timer_count_down:
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
