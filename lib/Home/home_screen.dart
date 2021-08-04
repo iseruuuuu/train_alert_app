@@ -17,62 +17,74 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return StateNotifierProvider<HomeScreenController, HomeScreenState>(
-        create: (context) => HomeScreenController(
-          context: context,
-        ),
-        builder: (context, _) {
-          return GestureDetector(
-            onTap: () {},
-            child: Scaffold(
+      create: (context) => HomeScreenController(
+        context: context,
+      ),
+      builder: (context, _) {
+        return GestureDetector(
+          onTap: () {},
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              elevation: 3,
               backgroundColor: Colors.white,
-              appBar: AppBar(
-                elevation: 3,
-                backgroundColor: Colors.white,
-                leading: Padding(
-                  padding: const EdgeInsets.only(left: 15),
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: IconButton(
+                  onPressed: () => context.read<HomeScreenController>().onTapTimer(),
+                  icon: const Icon(
+                    Icons.account_circle,
+                    color: Colors.blueAccent,
+                    size: 40,
+                  ),
+                ),
+              ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 15),
                   child: IconButton(
-                    onPressed: () => context.read<HomeScreenController>().onTapTimer(),
+                    onPressed: () {},
                     icon: const Icon(
-                      Icons.account_circle,
+                      Icons.contact_support_rounded,
                       color: Colors.blueAccent,
                       size: 40,
                     ),
                   ),
                 ),
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.contact_support_rounded,
-                        color: Colors.blueAccent,
-                        size: 40,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              body: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: RaisedButton(
-                      onPressed: () {
-                        _showModalPicker(context);
-                      },
-                      child: const Text('Show Picker'),
-                    ),
-                  ),
-
-                  Text(_selectedItem)
-                ],
-              ),
+              ],
             ),
-          );
-        }
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: RaisedButton(
+                    onPressed: () {
+                      _showModalPicker(context);
+                    },
+                    child: const Text('Show Picker'),
+                  ),
+                ),
+                Text(_selectedItem),
+
+
+                SizedBox(
+                  width: 300,
+                  height: 60,
+                  child: ElevatedButton(
+                    onPressed: () => context.read<HomeScreenController>().onTapTimer(),
+                    child: const Text('設定'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
+
+
+
 
   void _showModalPicker(BuildContext context) {
     showModalBottomSheet<void>(
