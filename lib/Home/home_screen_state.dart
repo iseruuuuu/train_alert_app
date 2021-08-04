@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:state_notifier/state_notifier.dart';
+import 'package:train_alert_app/alert/alert_screen.dart';
 
 part 'home_screen_state.freezed.dart';
 
@@ -26,7 +27,16 @@ class HomeScreenController extends StateNotifier<HomeScreenState> with LocatorMi
   void initState() {
     super.initState();
 
+  }
 
+  void onTapTimer() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AlertScreen(),
+        fullscreenDialog: true,
+      ),
+    );
   }
 
 }
